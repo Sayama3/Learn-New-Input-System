@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class PlayerJump : MonoBehaviour
 {
     [SerializeField] private float jumpIntensity = 200f; //en Newtons
-    [SerializeField] private string nameInputJump = "Jump";
+    //[SerializeField] private string nameInputJump = "Jump";
     Rigidbody rb;
 
     public bool canJump = true;
+
+    bool jump;
 
     private void Start()
     {
@@ -17,9 +21,10 @@ public class PlayerJump : MonoBehaviour
     
     private void Update()
     {
-        if (Input.GetButtonDown(nameInputJump) && canJump)
+
+        if (jump && canJump)
         {
-            rb.AddForce((Vector3.up * jumpIntensity), ForceMode.Impulse);
+            Jump();
             //canJump = false;
         }
 
@@ -40,4 +45,12 @@ public class PlayerJump : MonoBehaviour
         }
     }
 
+    public void OnJump(InputAction.CallbackContext context)
+    {
+        jump = (context.phase == InputActionPhase.Performed);
+    }
+    private void Jump()
+    {
+        rb.AddForce((Vector3.up * jumpIntensity), ForceMode.Impulse);
+    }
 }

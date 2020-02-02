@@ -27,6 +27,14 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
+                    ""name"": ""Camera"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""03ca59fb-c1e1-4458-a338-ac7b89975c35"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
                     ""name"": ""Strife"",
                     ""type"": ""Value"",
                     ""id"": ""bf254a1a-86f5-4e12-b1cb-41d833bcafbb"",
@@ -51,7 +59,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Use"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""c8f9ed87-a5ce-4ff4-838c-b6e591b84f8b"",
                     ""expectedControlType"": """",
@@ -77,7 +85,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -88,7 +96,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -99,7 +107,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -110,7 +118,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
@@ -121,7 +129,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Strife"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -132,7 +140,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -143,7 +151,7 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/ctrl"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""Attack"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -154,23 +162,52 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Use"",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d604d0ad-33ff-4725-a95f-1a508c565fd0"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Camera"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
             ]
         }
     ],
-    ""controlSchemes"": []
+    ""controlSchemes"": [
+        {
+            ""name"": ""Keyboard"",
+            ""bindingGroup"": ""Keyboard"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        }
+    ]
 }");
         // GamePlay
         m_GamePlay = asset.FindActionMap("GamePlay", throwIfNotFound: true);
         m_GamePlay_Movement = m_GamePlay.FindAction("Movement", throwIfNotFound: true);
+        m_GamePlay_Camera = m_GamePlay.FindAction("Camera", throwIfNotFound: true);
         m_GamePlay_Strife = m_GamePlay.FindAction("Strife", throwIfNotFound: true);
         m_GamePlay_Run = m_GamePlay.FindAction("Run", throwIfNotFound: true);
         m_GamePlay_Attack = m_GamePlay.FindAction("Attack", throwIfNotFound: true);
-        m_GamePlay_Use = m_GamePlay.FindAction("Use", throwIfNotFound: true);
+        m_GamePlay_Jump = m_GamePlay.FindAction("Jump", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -221,19 +258,21 @@ public class @PlayerController : IInputActionCollection, IDisposable
     private readonly InputActionMap m_GamePlay;
     private IGamePlayActions m_GamePlayActionsCallbackInterface;
     private readonly InputAction m_GamePlay_Movement;
+    private readonly InputAction m_GamePlay_Camera;
     private readonly InputAction m_GamePlay_Strife;
     private readonly InputAction m_GamePlay_Run;
     private readonly InputAction m_GamePlay_Attack;
-    private readonly InputAction m_GamePlay_Use;
+    private readonly InputAction m_GamePlay_Jump;
     public struct GamePlayActions
     {
         private @PlayerController m_Wrapper;
         public GamePlayActions(@PlayerController wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_GamePlay_Movement;
+        public InputAction @Camera => m_Wrapper.m_GamePlay_Camera;
         public InputAction @Strife => m_Wrapper.m_GamePlay_Strife;
         public InputAction @Run => m_Wrapper.m_GamePlay_Run;
         public InputAction @Attack => m_Wrapper.m_GamePlay_Attack;
-        public InputAction @Use => m_Wrapper.m_GamePlay_Use;
+        public InputAction @Jump => m_Wrapper.m_GamePlay_Jump;
         public InputActionMap Get() { return m_Wrapper.m_GamePlay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -246,6 +285,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Movement.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMovement;
                 @Movement.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMovement;
                 @Movement.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnMovement;
+                @Camera.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCamera;
+                @Camera.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCamera;
+                @Camera.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnCamera;
                 @Strife.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnStrife;
                 @Strife.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnStrife;
                 @Strife.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnStrife;
@@ -255,9 +297,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Attack.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnAttack;
                 @Attack.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnAttack;
                 @Attack.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnAttack;
-                @Use.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnUse;
-                @Use.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnUse;
-                @Use.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnUse;
+                @Jump.started -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_GamePlayActionsCallbackInterface.OnJump;
             }
             m_Wrapper.m_GamePlayActionsCallbackInterface = instance;
             if (instance != null)
@@ -265,6 +307,9 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @Camera.started += instance.OnCamera;
+                @Camera.performed += instance.OnCamera;
+                @Camera.canceled += instance.OnCamera;
                 @Strife.started += instance.OnStrife;
                 @Strife.performed += instance.OnStrife;
                 @Strife.canceled += instance.OnStrife;
@@ -274,19 +319,29 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 @Attack.started += instance.OnAttack;
                 @Attack.performed += instance.OnAttack;
                 @Attack.canceled += instance.OnAttack;
-                @Use.started += instance.OnUse;
-                @Use.performed += instance.OnUse;
-                @Use.canceled += instance.OnUse;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
             }
         }
     }
     public GamePlayActions @GamePlay => new GamePlayActions(this);
+    private int m_KeyboardSchemeIndex = -1;
+    public InputControlScheme KeyboardScheme
+    {
+        get
+        {
+            if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
+            return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
     public interface IGamePlayActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnCamera(InputAction.CallbackContext context);
         void OnStrife(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnAttack(InputAction.CallbackContext context);
-        void OnUse(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
     }
 }
