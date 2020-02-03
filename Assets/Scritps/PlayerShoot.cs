@@ -19,6 +19,7 @@ public class PlayerShoot : MonoBehaviour
         if (shoot)
         {
             weapons[activeIndex].Fire();
+            shoot = !shoot;
         }
         if (stopShoot)
         {
@@ -27,7 +28,8 @@ public class PlayerShoot : MonoBehaviour
     }
     public void OnShoot(InputAction.CallbackContext context)
     {
-        shoot = (context.phase == InputActionPhase.Performed);
-        stopShoot = (context.phase == InputActionPhase.Disabled);
+        shoot = (context.phase == InputActionPhase.Started);
+        stopShoot = (context.phase == InputActionPhase.Performed);
+        Debug.Log("la phase du bouton shot est " + context.phase);
     }
 }

@@ -44,5 +44,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 8567337785715759724, guid: 0c484ed0c34225a45bb16e1b6088a309, type: 3}
-  bulletPower: 1000
-  bulletLifeTime: 2
+  bulletPower: 10000
+  bulletLifeTime: 1

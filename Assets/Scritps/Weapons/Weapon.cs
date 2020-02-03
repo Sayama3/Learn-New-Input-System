@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    protected Transform cam;
+
+    protected virtual void Start()
+    {
+        cam = Camera.main.transform;
+    }
     public virtual void Fire()
     {
         Debug.Log(this.name + " fire.");

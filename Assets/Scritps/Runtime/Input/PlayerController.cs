@@ -40,39 +40,39 @@ public class @PlayerController : IInputActionCollection, IDisposable
                     ""id"": ""bf254a1a-86f5-4e12-b1cb-41d833bcafbb"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Run"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""27706a29-938e-4070-8eb5-2e50613dfc40"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Attack"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""063f7579-ac2e-4a49-983a-852cf2262ca9"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Jump"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""c8f9ed87-a5ce-4ff4-838c-b6e591b84f8b"",
                     ""expectedControlType"": """",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 },
                 {
                     ""name"": ""Shoot"",
-                    ""type"": ""Button"",
+                    ""type"": ""Value"",
                     ""id"": ""4752d767-eb5e-4cc9-8ce6-45e0e7ecbfcd"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Hold""
                 }
             ],
             ""bindings"": [
@@ -133,6 +133,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c125ba53-1deb-4515-8f62-da58ff6ec999"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""aed934ff-f2ea-4eba-9aa4-d1888bbcd592"",
                     ""path"": ""<Keyboard>/alt"",
                     ""interactions"": """",
@@ -188,6 +199,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""54a6825f-4f08-4bd5-a162-8a9c365d20e8"",
+                    ""path"": ""<Gamepad>/rightStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Camera"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8b52de92-4200-4f89-89fa-ccba40c858e4"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -212,6 +234,17 @@ public class @PlayerController : IInputActionCollection, IDisposable
                 },
                 {
                     ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Gamepad"",
+            ""bindingGroup"": ""Gamepad"",
+            ""devices"": [
+                {
+                    ""devicePath"": ""<Gamepad>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -361,6 +394,15 @@ public class @PlayerController : IInputActionCollection, IDisposable
         {
             if (m_KeyboardSchemeIndex == -1) m_KeyboardSchemeIndex = asset.FindControlSchemeIndex("Keyboard");
             return asset.controlSchemes[m_KeyboardSchemeIndex];
+        }
+    }
+    private int m_GamepadSchemeIndex = -1;
+    public InputControlScheme GamepadScheme
+    {
+        get
+        {
+            if (m_GamepadSchemeIndex == -1) m_GamepadSchemeIndex = asset.FindControlSchemeIndex("Gamepad");
+            return asset.controlSchemes[m_GamepadSchemeIndex];
         }
     }
     public interface IGamePlayActions

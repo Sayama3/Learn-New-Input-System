@@ -9,8 +9,9 @@ public class Pistol : Weapon
     [SerializeField] private float bulletLifeTime = 2f; //En secondes
     private Rigidbody rbBullet;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         rbBullet = bullet.GetComponent<Rigidbody>();
     }
 
@@ -22,8 +23,8 @@ public class Pistol : Weapon
 
     private void ShootBullet()
     {
-        var bulletFired = Instantiate(bullet, transform.position, bullet.transform.rotation);
-        bulletFired.GetComponent<Rigidbody>().AddForce(bulletFired.transform.forward * bulletPower);
+        var bulletFired = Instantiate(bullet, cam.position, cam.rotation);
+        bulletFired.GetComponent<Rigidbody>().AddForce(cam.forward * bulletPower);
         Destroy(bulletFired, bulletLifeTime);
     }
 }
